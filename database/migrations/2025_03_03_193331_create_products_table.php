@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (Schema::hasTable('users')) {
+        if (Schema::hasTable('products')) {
             return;
         }
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->text('description')->nullable();
+            $table->decimal('price', 10, 2);
+            $table->integer('stock');
             $table->timestamps();
         });
     }
@@ -27,9 +29,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if (!Schema::hasTable('users')) {
+        if (!Schema::hasTable('products')) {
             return;
         }
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('products');
     }
 };
